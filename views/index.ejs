@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Notes</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <%- include('partials/header') -%>
+  <h1>My Book Notes</h1>
+  <form action="/add" method="post">
+    <input type="text" name="title" placeholder="Title" required>
+    <input type="text" name="author" placeholder="Author">
+    <input type="text" name="isbn" placeholder="ISBN">
+    <textarea name="notes" placeholder="Notes"></textarea>
+    <input type="number" name="rating" placeholder="Rating">
+    <input type="date" name="date_read" placeholder="Date Read">
+    <button type="submit">Add Book</button>
+  </form>
+  <ul>
+    <% books.forEach(book => { %>
+      <li>
+        <img src="<%= book.cover_url %>" alt="Book cover">
+        <h2><%= book.title %></h2>
+        <p><%= book.author %></p>
+        <p><%= book.notes %></p>
+        <p>Rating: <%= book.rating %></p>
+        <p>Read on: <%= book.date_read %></p>
+        <form action="/update" method="post">
+          <input type="hidden" name="id" value="<%= book.id %>">
+          <input type="text" name="title" value="<%= book.title %>">
+          <input type="text" name="author" value="<%= book.author %>">
+          <textarea name="notes"><%= book.notes %></textarea>
+          <input type="number" name="rating" value="<%= book.rating %>">
+          <input type="date" name="date_read" value="<%= book.date_read %>">
+          <button type="submit">Update</button>
+        </form>
+        <form action="/delete" method="post">
+          <input type="hidden" name="id" value="<%= book.id %>">
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+    <% }) %>
+  </ul>
+  <%- include('partials/footer') -%>
+</body>
+</html>
