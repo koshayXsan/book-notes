@@ -3,15 +3,15 @@ const bodyParser = require('body-parser');
 const pg = require('pg');
 const axios = require('axios');
 const ejs = require('ejs');
-
+require('dotenv').config();
 const app = express();
 const port = 3000;
 
 const db = new pg.Client({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'book_notes',
-  password: '1234', // replace with your actual password
+  user: 'process.env.user',
+  host: 'process.env.host',
+  database: 'process.env.db',
+  password: 'process.env.pwd', // replace with your actual password
   port: 5432,
 });
 
